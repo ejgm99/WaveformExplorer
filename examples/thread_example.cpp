@@ -1,28 +1,41 @@
 #include <iostream>
-// #include <thread>
+#include <thread>
+
+//Brief introduction to threads using this tutorial: https://www.geeksforgeeks.org/multithreading-in-cpp/
 
 using namespace std;
 
-void dummy_function(int Z){
-    for (int i ; i < Z; i++){
-        cout << "Dummy function thread executing" << endl;
 
+// A dummy function
+void foo(int Z)
+{
+    for (int i = 0; i < Z; i++) {
+        cout << "Thread using function"
+               " pointer as callable\n";
     }
 }
-
-class callable_obj{
-    public: 
-        void operator() (int X){
-            for (int i; i < X; i++){
-                cout << "Callable object thread executing" << endl;
-            }
-        }
+  
+// A callable object
+class thread_obj {
+public:
+    void operator()(int x)
+    {
+        for (int i = 0; i < x; i++)
+            cout << "Thread using function"
+                  " object as  callable\n";
+    }
 };
 
 
-
 int main(){
+
     cout << "Hello Thread Example " << endl;
+    
+    thread functionThread(foo, 3);
+
+    thread callableObjectThread(callable_obj(), 3);
+
+
     return 0;
 
 }
